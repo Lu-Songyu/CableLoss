@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
-
+import sys
+from tkinter import *
 
 loop = 282
 # parse in XML file
@@ -31,23 +32,24 @@ def generateXML(dict):
     while count < loop :
         # root[1][count][1].text is loss
         # root[1][count][0].text is measurement
-        print(type(root[1][count][0].text))
-        print(root[1][count][1].text)
         root[1][count][1].text = dict[root[1][count][0].text]
         count+=1
-    file.write('new.xml')
+    file.write('result.xml')
 
 def main():
     # load rss from web to update existing xml file
     # parse xml file
-    file1 = parseFile('pink.xml')
-    file2 = parseFile('black.xml')
-
-    print(file1)
-    print(file2)
+    file1 = parseFile(sys.argv[1])
+    file2 = parseFile(sys.argv[2])
     file3 = combine(file1, file2)
-    print(file3)
+
     generateXML(file3)
+
+    window=Tk()
+    window.title('Combine Cable Loss')
+    window.geometry("800x600+100+200")
+    window.mainloop()
+
     # store news items in a csv file
     
       
